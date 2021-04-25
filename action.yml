@@ -123,8 +123,11 @@ runs:
           echo CROSS_VALIDATION_ARGS="--cross-validation" >> $GITHUB_ENV
         fi
 
+        echo "PYTHONPATH=${PYTHONPATH}:/app/activity_parser" >> $GITHUB_ENV
+        echo "PYTHONPATH=${PYTHONPATH}:/app/regex_mod" >> $GITHUB_ENV
+
         # Set docker args
-        echo DOCKER_ARGS="--rm --tmpfs /.config -e PYTHONPATH=${PYTHONPATH}:/app/activity_parser -e PYTHONPATH=${PYTHONPATH}:/app/regex_mod -e MPLCONFIGDIR=/tmp/.mplconfigdir \
+        echo DOCKER_ARGS="--rm --tmpfs /.config -e PYTHONPATH=${PYTHONPATH} -e MPLCONFIGDIR=/tmp/.mplconfigdir \
           -e CI=${CI} -e RASA_TELEMETRY_ENABLED=${{ env.RASA_TELEMETRY_ENABLED }} -v ${{ github.workspace }}:/app/github_workspace \
           -v ${{ inputs.workspace }}:/app -v ${{ inputs.workspace }}/models:/app/models \
           -v ${{ inputs.workspace }}/${{ inputs.result_directory }}:/app/results" >> $GITHUB_ENV
