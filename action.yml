@@ -123,8 +123,9 @@ runs:
           echo CROSS_VALIDATION_ARGS="--cross-validation" >> $GITHUB_ENV
         fi
 
-        echo "PYTHONPATH=${PYTHONPATH}:/app/activity_parser" >> $GITHUB_ENV
-        echo "PYTHONPATH=${PYTHONPATH}:/app/regex_mod" >> $GITHUB_ENV
+        export "PYTHONPATH=${PYTHONPATH}:/app/activity_parser"
+        export "PYTHONPATH=${PYTHONPATH}:/app/regex_mod"
+        echo ${PYTHONPATH}
 
         # Set docker args
         echo DOCKER_ARGS="--rm --tmpfs /.config -e PYTHONPATH=${env.PYTHONPATH} -e MPLCONFIGDIR=/tmp/.mplconfigdir \
