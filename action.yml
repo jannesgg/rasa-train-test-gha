@@ -127,9 +127,6 @@ runs:
         export "PYTHONPATH=${PYTHONPATH}:/app/activity_parser"
         export "PYTHONPATH=${PYTHONPATH}:/app/regex_mod"
         echo ${PYTHONPATH}
-        
-        # Install requirements for custom environment
-        pip install -r ${{ github.workspace }}/requirements.txt
 
         # Set docker args
         echo DOCKER_ARGS="--rm --pull always --tmpfs /.config -e PYTHONPATH=${PYTHONPATH} -e MPLCONFIGDIR=/tmp/.mplconfigdir \
@@ -181,6 +178,8 @@ runs:
         if [[ "${{ inputs.data_validate }}" == "true" ]]; then
           echo "Run data validation"
           echo
+          # Install requirements for custom environment
+          pip install -r ${{ github.workspace }}/requirements.txt
           echo docker run ${{ env.DOCKER_ARGS }} ${{ env.RASA_IMAGE }} data validate
           docker run ${{ env.DOCKER_ARGS }} ${{ env.RASA_IMAGE }} data validate
         else
@@ -197,6 +196,8 @@ runs:
         elif [[ "${{ inputs.rasa_train }}" == "true" ]]; then
           echo "Run the rasa train"
           echo ""
+          # Install requirements for custom environment
+          pip install -r ${{ github.workspace }}/requirements.txt
           docker run ${{ env.DOCKER_ARGS }} ${{ env.RASA_IMAGE }} train ${{ env.TEST_TYPE }} ${{ env.DEFAULT_ARGS }} ${{ inputs.train_args }}
         else
           echo "::warning::rasa train is disabled. To turn on the rasa train set the rasa_train parameter to 'true'."
@@ -208,6 +209,8 @@ runs:
         if [[ "${{ inputs.rasa_test }}" == "true" ]]; then
           echo "Run the rasa test"
           echo ""
+          # Install requirements for custom environment
+          pip install -r ${{ github.workspace }}/requirements.txt
           docker run ${{ env.DOCKER_ARGS }} ${{ env.RASA_IMAGE }} test ${{ env.TEST_TYPE }} ${{ env.MODEL_ARGS }} ${{ env.CROSS_VALIDATION_ARGS }} ${{ env.DEFAULT_ARGS }} ${{ inputs.test_args }}
         else
           echo "::warning::rasa test is disabled. To turn on the rasa train set the rasa_test parameter to 'true'."
