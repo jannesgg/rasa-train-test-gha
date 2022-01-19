@@ -129,7 +129,7 @@ runs:
         echo ${PYTHONPATH}
         
         # Install requirements for custom environment
-        pip install -r /app/requirements.txt
+        pip install -r ${{ github.workspace }}/requirements.txt
 
         # Set docker args
         echo DOCKER_ARGS="--rm --pull always --tmpfs /.config -e PYTHONPATH=${PYTHONPATH} -e MPLCONFIGDIR=/tmp/.mplconfigdir \
