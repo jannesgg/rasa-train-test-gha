@@ -123,9 +123,13 @@ runs:
           echo CROSS_VALIDATION_ARGS="--cross-validation" >> $GITHUB_ENV
         fi
 
+        # Export custom extractors
         export "PYTHONPATH=${PYTHONPATH}:/app/activity_parser"
         export "PYTHONPATH=${PYTHONPATH}:/app/regex_mod"
         echo ${PYTHONPATH}
+        
+        # Install requirements for custom environment
+        pip install -r /app/requirements.txt
 
         # Set docker args
         echo DOCKER_ARGS="--rm --pull always --tmpfs /.config -e PYTHONPATH=${PYTHONPATH} -e MPLCONFIGDIR=/tmp/.mplconfigdir \
