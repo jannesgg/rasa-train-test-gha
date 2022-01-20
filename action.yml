@@ -8,7 +8,7 @@ inputs:
   rasa_image:
     description: 'Custom Docker image'
     required: false
-    default: 'jannesgg/organaise-bot'
+    default: 'jannesg/organaise-rasa'
   rasa_train:
     description: 'Run rasa train'
     required: true
