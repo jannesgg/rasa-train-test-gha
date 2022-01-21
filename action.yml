@@ -15,7 +15,7 @@ inputs:
     default: 'true'
   rasa_test:
     description: 'Run rasa test'
-    required: true
+    required: false
     default: 'false'
   data_validate:
     description: 'Validates domain and data files to check for possible mistakes'
