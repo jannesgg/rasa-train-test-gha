@@ -130,7 +130,7 @@ runs:
 
         # Set docker args
         echo DOCKER_ARGS="--rm --pull always --tmpfs /.config -e PYTHONPATH=${PYTHONPATH} -e MPLCONFIGDIR=/tmp/.mplconfigdir \
-          -e CI=${CI} -e RASA_TELEMETRY_ENABLED=${{ env.RASA_TELEMETRY_ENABLED }} -v ${{ github.workspace }}:/app/github_workspace \
+          -e CI=${CI} -e RASA_TELEMETRY_ENABLED=${{ env.RASA_TELEMETRY_ENABLED }} -v /home/runner/work/organaise-bot/organaise-bot/test_fix.py:/opt/venv/lib/python3.8/site-packages/rasa/nlu/test.py -v ${{ github.workspace }}:/app/github_workspace \
           -v ${{ inputs.workspace }}:/app -v ${{ inputs.workspace }}/models:/app/models \
           -v ${{ inputs.workspace }}/${{ inputs.result_directory }}:/app/results" >> $GITHUB_ENV
 
@@ -205,7 +205,6 @@ runs:
         if [[ "${{ inputs.rasa_test }}" == "true" ]]; then
           echo "Use the custom test code"
           echo ""
-          cp /home/runner/work/organaise-bot/organaise-bot/test_fix.py /opt/venv/lib/python3.8/site-packages/rasa/nlu/test.py
           echo "Run the rasa test"
           echo ""
           docker run ${{ env.DOCKER_ARGS }} ${{ env.RASA_IMAGE }} test ${{ env.TEST_TYPE }} ${{ env.MODEL_ARGS }} ${{ env.CROSS_VALIDATION_ARGS }} ${{ env.DEFAULT_ARGS }} ${{ inputs.test_args }}
